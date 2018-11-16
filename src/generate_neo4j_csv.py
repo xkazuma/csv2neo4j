@@ -21,10 +21,10 @@ if __name__ == '__main__':
                                header[5] + ":" + "int"])
                                
         with open("../resource/neo4j/node_comment.csv", "w", encoding = "utf-8") as out:
-            row6 = open("../resource/neo4j/comment-creator.csv",        "w", encoding = "utf-8")
-            row7 = open("../resource/neo4j/comment-place.csv",          "w", encoding = "utf-8")
-            row8 = open("../resource/neo4j/comment-replyOfPost.csv",    "w", encoding = "utf-8")
-            row9 = open("../resource/neo4j/comment-replyOfComment.csv", "w", encoding = "utf-8")
+            row6 = open("../resource/neo4j/rel_comment-creator.csv",        "w", encoding = "utf-8")
+            row7 = open("../resource/neo4j/rel_comment-place.csv",          "w", encoding = "utf-8")
+            row8 = open("../resource/neo4j/rel_comment-replyOfPost.csv",    "w", encoding = "utf-8")
+            row9 = open("../resource/neo4j/rel_comment-replyOfComment.csv", "w", encoding = "utf-8")
             row6.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             row7.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             row8.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
@@ -60,7 +60,7 @@ if __name__ == '__main__':
                                header[2] + ":" + "localdatetime"])
                                
         with open("../resource/neo4j/node_forum.csv", "w", encoding = "utf-8") as out:
-            row3 = open("../resource/neo4j/forum-moderator.csv", "w", encoding = "utf-8")
+            row3 = open("../resource/neo4j/rel_forum-moderator.csv", "w", encoding = "utf-8")
             row3.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
@@ -98,7 +98,7 @@ if __name__ == '__main__':
                                header[3] + ":" + "string"])
                                
         with open("../resource/neo4j/node_organisation.csv", "w", encoding = "utf-8") as out:
-            row4 = open("../resource/neo4j/organisation-place.csv", "w", encoding = "utf-8")
+            row4 = open("../resource/neo4j/rel_organisation-place.csv", "w", encoding = "utf-8")
             row4.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
@@ -142,7 +142,7 @@ if __name__ == '__main__':
                     pid2email[row[0]] = [row[1]]
                         
         with open("../resource/neo4j/node_person.csv", "w", encoding = "utf-8") as out:
-            row8 = open("../resource/neo4j/person-place.csv", "w", encoding = "utf-8")
+            row8 = open("../resource/neo4j/rel_person-place.csv", "w", encoding = "utf-8")
             row8.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
@@ -223,7 +223,7 @@ if __name__ == '__main__':
                                header[3] + ":" + "string"])
                                
         with open("../resource/neo4j/node_place.csv", "w", encoding = "utf-8") as out:
-            row4 = open("../resource/neo4j/place_isPartOf.csv", "w", encoding = "utf-8")
+            row4 = open("../resource/neo4j/rel_place_isPartOf.csv", "w", encoding = "utf-8")
             row4.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
@@ -245,9 +245,9 @@ if __name__ == '__main__':
                                header[7] + ":" + "int"])
                                
         with open("../resource/neo4j/node_post.csv", "w", encoding = "utf-8") as out:
-            row8  = open("../resource/neo4j/post_creator.csv", "w", encoding = "utf-8")
-            row9  = open("../resource/neo4j/post_forum.csv",   "w", encoding = "utf-8")
-            row10 = open("../resource/neo4j/post_place.csv", "w", encoding = "utf-8")
+            row8  = open("../resource/neo4j/rel_post_creator.csv", "w", encoding = "utf-8")
+            row9  = open("../resource/neo4j/rel_post_forum.csv",   "w", encoding = "utf-8")
+            row10 = open("../resource/neo4j/rel_post_place.csv", "w", encoding = "utf-8")
             row8 .write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             row9 .write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             row10.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
@@ -280,7 +280,7 @@ if __name__ == '__main__':
                                header[2] + ":" + "string"])
                                
         with open("../resource/neo4j/node_tag.csv", "w", encoding = "utf-8") as out:
-            row3 = open("../resource/neo4j/tag.csv", "w", encoding = "utf-8")
+            row3 = open("../resource/neo4j/rel_tag_hasType.csv", "w", encoding = "utf-8")
             row3.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
@@ -297,7 +297,7 @@ if __name__ == '__main__':
                                header[2] + ":" + "string"])
                                
         with open("../resource/neo4j/node_tagclass.csv", "w", encoding = "utf-8") as out:
-            row3 = open("../resource/neo4j/tagclass_isSubclassOf.csv", "w", encoding = "utf-8")
+            row3 = open("../resource/neo4j/rel_tagclass_isSubclassOf.csv", "w", encoding = "utf-8")
             row3.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
