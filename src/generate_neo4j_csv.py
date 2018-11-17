@@ -14,7 +14,7 @@ if __name__ == '__main__':
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
         header_str = sep.join([header[0] + ":ID", \
-                               header[1] + ":localdatetime", \
+                               header[1] + ":datetime", \
                                header[2] + ":string", \
                                header[3] + ":string", \
                                header[4] + ":string", \
@@ -58,7 +58,7 @@ if __name__ == '__main__':
         header = next(reader)
         header_str = sep.join([header[0] + ":ID", \
                                header[1] + ":string", \
-                               header[2] + ":localdatetime", \
+                               header[2] + ":datetime", \
                                            ":LABEL"])
                                
         with open("../resource/neo4j/node_forum.csv", "w", encoding = "utf-8") as out:
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     with open("../resource/LDBCSNB/forum_hasMember_person_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
-        header_str = sep.join([":START_ID", ":END_ID", ":TYPE", header[2] + ":localdatetime"])
+        header_str = sep.join([":START_ID", ":END_ID", ":TYPE", header[2] + ":datetime"])
                                
         with open("../resource/neo4j/rel_forum-hasMember.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
@@ -118,7 +118,7 @@ if __name__ == '__main__':
                                header[2]  + ":string", \
                                header[3]  + ":string", \
                                header[4]  + ":datetime", \
-                               header[5]  + ":localdatetime", \
+                               header[5]  + ":datetime", \
                                header[6]  + ":string", \
                                header[7]  + ":string", \
                                "language" + ":string[]", \
@@ -170,7 +170,7 @@ if __name__ == '__main__':
     with open("../resource/LDBCSNB/person_knows_person_0_0.csv",         "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
-        header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:localdatetime"])
+        header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:datetime"])
                                
         with open("../resource/neo4j/rel_person_knows.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
@@ -180,7 +180,7 @@ if __name__ == '__main__':
     with open("../resource/LDBCSNB/person_likes_comment_0_0.csv",        "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
-        header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:localdatetime"])
+        header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:datetime"])
                                
         with open("../resource/neo4j/rel_person_likes.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
@@ -190,7 +190,7 @@ if __name__ == '__main__':
     with open("../resource/LDBCSNB/person_likes_post_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
-        header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:localdatetime"])
+        header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:datetime"])
                                
         with open("../resource/neo4j/rel_person_likes.csv", "a", encoding = "utf-8") as out:
             out.write(header_str + "\n")
@@ -242,7 +242,7 @@ if __name__ == '__main__':
         header = next(reader)
         header_str = sep.join([header[0] + ":" + "ID", \
                                header[1] + ":" + "string", \
-                               header[2] + ":" + "localdatetim", \
+                               header[2] + ":" + "datetime", \
                                header[3] + ":" + "string", \
                                header[4] + ":" + "string", \
                                header[5] + ":" + "string", \
