@@ -1,5 +1,10 @@
+!.keep
+
 resource/LDBCSNB/*.csv
 resource/LDBCSNB/*.crc
 resource/LDBCSNB/*.properties
 resource/neo4j/*.csv
-!.keep
+
+# files related Neo4j
+import.report
+
