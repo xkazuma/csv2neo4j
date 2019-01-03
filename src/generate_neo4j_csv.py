@@ -32,11 +32,12 @@ if __name__ == '__main__':
             row9.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[0:6] + ["Comment"]) + "\n")
-                if row[6] != "": row6.write(sep.join([row[0], row[6], "creator"])        + "\n")
-                if row[7] != "": row7.write(sep.join([row[0], row[7], "place"])          + "\n")
-                if row[8] != "": row8.write(sep.join([row[0], row[8], "replyOfPost"])    + "\n")
-                if row[9] != "": row9.write(sep.join([row[0], row[9], "replyOfComment"]) + "\n")
+                node_id = "c" + row[0]
+                out.write(sep.join([node_id] + row[1:6] + ["Comment"]) + "\n")
+                if row[6] != "": row6.write(sep.join([node_id, "pe" + row[6], "creator"])        + "\n")
+                if row[7] != "": row7.write(sep.join([node_id, "pl" + row[7], "place"])          + "\n")
+                if row[8] != "": row8.write(sep.join([node_id, "po" + row[8], "replyOfPost"])    + "\n")
+                if row[9] != "": row9.write(sep.join([node_id, "c"  + row[9], "replyOfComment"]) + "\n")
             
             row6.close()
             row7.close()
@@ -51,7 +52,8 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_comment-hasTag.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["hasTag"]) + "\n")
+                node_id = "c" + row[0]
+                out.write(sep.join([node_id, "t" + row[1], "hasTag"]) + "\n")
 
     with open("../resource/LDBCSNB/forum_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
@@ -66,8 +68,9 @@ if __name__ == '__main__':
             row3.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[0:3] + ["Forum"]) + "\n")
-                if row[3] != "": row3.write(sep.join([row[0], row[3], "moderator"]) + "\n")
+                node_id = "f" + row[0]
+                out.write(sep.join([node_id] + row[1:3] + ["Forum"]) + "\n")
+                if row[3] != "": row3.write(sep.join([node_id, "pe" + row[3], "moderator"]) + "\n")
             
             row3.close()
 
@@ -79,7 +82,7 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_forum-hasMember.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["hasMember", header[2]]) + "\n")
+                out.write(sep.join(["f" + row[0], "pe" + row[1], "hasMember", row[2]]) + "\n")
 
     with open("../resource/LDBCSNB/forum_hasTag_tag_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
@@ -89,7 +92,7 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_forum-hasTag.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["hasTag"]) + "\n")
+                out.write(sep.join(["f" + row[0], "t" + row[1], "hasTag"]) + "\n")
 
     with open("../resource/LDBCSNB/organisation_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
@@ -105,8 +108,9 @@ if __name__ == '__main__':
             row4.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[0:4] + ["Organisation"]) + "\n")
-                if row[4] != "": row4.write(sep.join([row[0], row[4], "place"]) + "\n")
+                node_id = "o" + row[0]
+                out.write(sep.join([node_id] + row[1:4] + ["Organisation"]) + "\n")
+                if row[4] != "": row4.write(sep.join([node_id, "pl" + row[4], "place"]) + "\n")
             
             row4.close()
 
@@ -150,14 +154,15 @@ if __name__ == '__main__':
             row8.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
+                node_id = "pe" + row[0]
                 langs  = ";".join(pid2lang [row[0]])
                 emails = ";".join(pid2email[row[0]])
-                out.write(sep.join(row[0:8] + [langs, emails, "Person"]) + "\n")
-                if row[8] != "": row8.write(sep.join([row[0], row[8], "place"]) + "\n")
+                out.write(sep.join([node_id] + row[1:8] + [langs, emails, "Person"]) + "\n")
+                if row[8] != "": row8.write(sep.join([node_id, "pl" + row[8], "place"]) + "\n")
             
             row8.close()
 
-    with open("../resource/LDBCSNB/person_hasInterest_tag_0_0.csv",      "r", encoding = "utf-8") as f:
+    with open("../resource/LDBCSNB/person_hasInterest_tag_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
         header_str = sep.join([":START_ID", ":END_ID", ":TYPE"])
@@ -165,9 +170,9 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_person_hasInterest.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["hasInterest"]) + "\n")
+                out.write(sep.join(["pe" + row[0], "t" + row[1], "hasInterest"]) + "\n")
 
-    with open("../resource/LDBCSNB/person_knows_person_0_0.csv",         "r", encoding = "utf-8") as f:
+    with open("../resource/LDBCSNB/person_knows_person_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
         header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:datetime"])
@@ -175,9 +180,9 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_person_knows.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["creationDate", row[2]]) + "\n")
+                out.write(sep.join(["pe" + row[0], "pe" + row[1], "knows", row[2]]) + "\n")
 
-    with open("../resource/LDBCSNB/person_likes_comment_0_0.csv",        "r", encoding = "utf-8") as f:
+    with open("../resource/LDBCSNB/person_likes_comment_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
         header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:datetime"])
@@ -185,7 +190,7 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_person_likes.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["creationDate", row[2]]) + "\n")
+                out.write(sep.join(["pe" + row[0], "c" + row[1], "likes", row[2]]) + "\n")
         
     with open("../resource/LDBCSNB/person_likes_post_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
@@ -193,9 +198,9 @@ if __name__ == '__main__':
         header_str = sep.join([":START_ID", ":END_ID", ":TYPE", "creationDate:datetime"])
                                
         with open("../resource/neo4j/rel_person_likes.csv", "a", encoding = "utf-8") as out:
-            out.write(header_str + "\n")
+            # out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["creationDate", row[2]]) + "\n")
+                out.write(sep.join(["pe" + row[0], "po" + row[1], "likes", row[2]]) + "\n")
         
 
     with open("../resource/LDBCSNB/person_studyAt_organisation_0_0.csv", "r", encoding = "utf-8") as f:
@@ -206,7 +211,7 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_person_studyAt.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["studyAt", row[2]]) + "\n")
+                out.write(sep.join(["pe" + row[0], "o" + row[1], "studyAt", row[2]]) + "\n")
         
     with open("../resource/LDBCSNB/person_workAt_organisation_0_0.csv",  "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
@@ -216,7 +221,7 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_person_workAt.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["workAt", row[2]]) + "\n")
+                out.write(sep.join(["pe" + row[0], "o" + row[1], "workAt", row[2]]) + "\n")
         
     with open("../resource/LDBCSNB/place_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
@@ -232,15 +237,16 @@ if __name__ == '__main__':
             row4.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[0:4] + ["Place"]) + "\n")
-                if row[4] != "": row4.write(sep.join([row[0], row[4], "isPartOf"]) + "\n")
+                node_id = "pl" + row[0]
+                out.write(sep.join([node_id] + row[1:4] + ["Place"]) + "\n")
+                if row[4] != "": row4.write(sep.join([node_id, "pl" + row[4], "isPartOf"]) + "\n")
             
             row4.close()
 
-    with open("../resource/LDBCSNB/post_0_0.csv",                        "r", encoding = "utf-8") as f:
+    with open("../resource/LDBCSNB/post_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
         header = next(reader)
-        header_str = sep.join([header[0] + ":" + "ID", \
+        header_str = sep.join([header[0] + ":" + ":ID", \
                                header[1] + ":" + "string", \
                                header[2] + ":" + "datetime", \
                                header[3] + ":" + "string", \
@@ -259,10 +265,11 @@ if __name__ == '__main__':
             row10.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[0:8] + ["Post"]) + "\n")
-                if row[ 8] != "": row8. write(sep.join([row[0], row[ 8], "creator"]) + "\n")
-                if row[ 9] != "": row9. write(sep.join([row[0], row[ 9], "forum"  ]) + "\n")
-                if row[10] != "": row10.write(sep.join([row[0], row[10], "place"  ]) + "\n")
+                node_id = "po" + row[0]
+                out.write(sep.join([node_id] + row[1:8] + ["Post"]) + "\n")
+                if row[ 8] != "": row8. write(sep.join([node_id, "pe" + row[ 8], "creator"]) + "\n")
+                if row[ 9] != "": row9. write(sep.join([node_id, "f"  + row[ 9], "forum"  ]) + "\n")
+                if row[10] != "": row10.write(sep.join([node_id, "pl" + row[10], "place"  ]) + "\n")
             
             row8 .close()
             row9 .close()
@@ -276,7 +283,7 @@ if __name__ == '__main__':
         with open("../resource/neo4j/rel_person_hasTag.csv", "w", encoding = "utf-8") as out:
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[:2] + ["hasTag"]) + "\n")
+                out.write(sep.join(["po" + row[0], "t" + row[1], "hasTag"]) + "\n")
         
     with open("../resource/LDBCSNB/tag_0_0.csv", "r", encoding = "utf-8") as f:
         reader = csv.reader(f, delimiter = sep)
@@ -291,8 +298,9 @@ if __name__ == '__main__':
             row3.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[0:3] + ["Tag"]) + "\n")
-                if row[3] != "": row3. write(sep.join([row[0], row[3], "hasType"]) + "\n")
+                node_id = "t" + row[0]
+                out.write(sep.join([node_id] + row[1:3] + ["Tag"]) + "\n")
+                if row[3] != "": row3. write(sep.join([node_id, "tc" + row[3], "hasType"]) + "\n")
             
             row3.close()
 
@@ -309,7 +317,8 @@ if __name__ == '__main__':
             row3.write(sep.join([":START_ID", ":END_ID", ":TYPE"]) + "\n")
             out.write(header_str + "\n")
             for row in reader:
-                out.write(sep.join(row[0:3] + ["Tagclass"]) + "\n")
-                if row[3] != "": row3.write(sep.join([row[0], row[3], "isSubclassOf"]) + "\n")
+                node_id = "tc" + row[0]
+                out.write(sep.join([node_id] + row[1:3] + ["Tagclass"]) + "\n")
+                if row[3] != "": row3.write(sep.join([node_id, "tc" + row[3], "isSubclassOf"]) + "\n")
             
             row3.close()
